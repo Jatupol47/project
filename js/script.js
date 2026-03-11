@@ -26,9 +26,29 @@ document.addEventListener('DOMContentLoaded', () => {
   initCurrentDate();
   initGallery();
   initRegistration();
+  initLoginSidebar();
   setupVideoButtons();
-  toggleBook(false); // ซ่อน PDF Viewer ตอนโหลดหน้า
+  toggleBook(false);
+  initHeroSlider();
 });
+
+// ==============================
+// LOGIN SIDEBAR TOGGLE
+// ==============================
+function initLoginSidebar() {
+
+  const btn = document.getElementById("toggleLogin");
+  const sidebar = document.getElementById("loginSidebar");
+  const content = document.getElementById("pageContent");
+
+  if (!btn || !sidebar || !content) return;
+
+  btn.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+    content.classList.toggle("shift");
+    btn.classList.toggle("move");
+  });
+}
 
 // ==============================
 // PDF BOOK VIEWER
@@ -39,7 +59,7 @@ function toggleBook(isOpen) {
   const pdfFrame = document.getElementById('pdfFrame');
   
   // ระบุชื่อไฟล์ PDF ของคุณที่นี่ (ต้องวางไฟล์ไว้ในโฟลเดอร์เดียวกับเว็บ หรือระบุ Path ให้ถูก)
-  const pdfUrl = '/documents/mybook.pdf'; // เปลี่ยนเป็น URL ของไฟล์ PDF ที่ต้องการ
+  const pdfUrl = '../documents/mybook.pdf'; // เปลี่ยนเป็น URL ของไฟล์ PDF ที่ต้องการ
 
   if (isOpen) {
     cover.style.display = 'none';
@@ -54,6 +74,7 @@ function toggleBook(isOpen) {
     viewer.style.display = 'none';
   }
 }
+
 // ==============================
 // YOUTUBE VIDEO SWITCHER
 // ==============================
@@ -70,6 +91,7 @@ function setupVideoButtons() {
     });
   });
 }
+
 // ==============================
 // QR SWITCHER
 // ==============================
@@ -747,4 +769,56 @@ function checkUsernameAvailability() {
     });
   }
 }
+
 // ==============================
+// HERO BACKGROUND SLIDER
+// ==============================
+function initHeroSlider() {
+
+  const hero = document.getElementById("hero");
+  const prev = document.getElementById("prevHero");
+  const next = document.getElementById("nextHero");
+
+  if (!hero) return;
+
+  const images = [
+    "../img/home.jpg",
+    "../img/home1.jpg",
+    "../img/home2.jpg",
+    "../img/home3.jpg",
+    "../img/home4.jpg",
+    "../img/home5.jpg",
+    "../img/home6.jpg"
+  ];
+
+  let index = 0;
+
+  function updateHero(){
+    hero.style.backgroundImage = `url('${images[index]}')`;
+  }
+
+  if (next){
+    next.addEventListener("click", () => {
+      index++;
+      if(index >= images.length) index = 0;
+      updateHero();
+    });
+  }
+
+  if (prev){
+    prev.addEventListener("click", () => {
+      index--;
+      if(index < 0) index = images.length - 1;
+      updateHero();
+    });
+  }
+
+  // auto slide
+  setInterval(() => {
+    index++;
+    if(index >= images.length) index = 0;
+    updateHero();
+  }, 4000);
+
+  updateHero();
+}

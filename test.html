@@ -4,189 +4,114 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+/* ส่วนหลักของ Sidebar (Aside) */
+.sidebar {
+  background: #30364F;
+  color: white;
+  padding: 1.5rem; /* เพิ่ม padding ให้ดูไม่แน่นเกินไป */
+  border: 2px solid #000000;
+  border-left: none; /* เอาขอบซ้ายออกเพราะติดขอบจอ */
+  border-radius: 0 20px 20px 0;
+  
+  /* ตั้งค่าการจัดวางและการซ่อน */
+  position: fixed;
+  left: 0;
+  top: 150px;
+  width: 260px; /* กำหนดความกว้างที่แน่นอน */
+  z-index: 1000;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* สไลด์แบบนุ่มนวล */
+}
+
+/* เมื่อมีคลาส .collapsed ให้เลื่อนไปทางซ้ายจนสุด */
+.sidebar.collapsed {
+  transform: translateX(-100%);
+}
+
+/* หัวข้อ Sidebar */
+.sidebar h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: white;
+  font-size: 1.2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 0.5rem;
+}
+
+/* ฟอร์ม Login */
+.sidebar .login-form input {
+  width: 100%;
+  margin-bottom: 0.75rem;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #f8f9fa;
+  box-sizing: border-box; /* ป้องกัน input ล้นขอบ */
+}
+
+/* ปุ่ม Login */
+.sidebar .login-form button {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  background: #4A5568;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar .login-form button:hover {
+  background: #2D3748;
+}
+
+/* --- ปุ่ม Toggle สำหรับกดซ่อน/แสดง --- */
+.toggle-sidebar-btn {
+  position: absolute;
+  right: -35px; /* ยื่นออกมานอกตัว sidebar */
+  top: 20px;
+  width: 35px;
+  height: 45px;
+  background: #30364F;
+  border: 2px solid #000000;
+  border-left: none;
+  border-radius: 0 10px 10px 0;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+/* ลิงก์สมัครสมาชิก/ลืมรหัสผ่าน */
+.sidebar-links {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+}
+
+.sidebar-links a {
+  color: #a0aec0;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.sidebar-links a:hover {
+  color: white;
+}
+  </style>
 </head>
 <body>
-<style>
-  /* จัดกล่องซ้าย-ขวา */
-.learning-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 0 15px;
-}
-
-/* สไตล์พื้นฐานของกล่อง (ทั้งวิดีโอและหนังสือ) */
-.card-box {
-  background: rgba(108, 117, 125, 0.5); /* สีเทาโปร่งแสงตามธีมเดิม */
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  flex: 1;
-  min-width: 300px; /* ขนาดขั้นต่ำก่อนปัดลงบรรทัดใหม่ */
-}
-
-/* ส่วนวิดีโอ */
-.video-section iframe {
-  width: 100%;
-  border-radius: 10px;
-  aspect-ratio: 16/9;
-}
-
-.video-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.btn-video {
-  background: #343a40;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: left;
-  transition: 0.3s;
-}
-
-.btn-video:hover, .btn-video.active {
-  background: #495057;
-}
-
-/* ส่วนหนังสือ */
-.book-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 400px; /* ความสูงขั้นต่ำ */
-  background: #f8f9fa; /* สีพื้นหลังหนังสือให้ดูสว่าง */
-  color: #333;
-}
-
-/* หน้าปกก่อนเปิด */
-.book-placeholder {
-  text-align: center;
-}
-
-.book-icon {
-  font-size: 80px;
-  margin-bottom: 10px;
-}
-
-.btn-open-book {
-  background: #d35400; /* สีส้มอิฐ */
-  color: white;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 25px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 15px;
-  transition: transform 0.2s;
-}
-
-.btn-open-book:hover {
-  transform: scale(1.05);
-  background: #e67e22;
-}
-
-/* ตัวอ่าน PDF */
-.pdf-container {
-  width: 100%;
-  height: 600px; /* ความสูงของ PDF */
-  position: relative;
-}
-
-.pdf-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 10px;
-}
-
-.btn-close-book {
-  background: transparent;
-  border: none;
-  color: #e74c3c;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.pdf-container iframe {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  height: 90%;
-}
-
-/* Responsive: มือถือให้เรียงลงมา */
-@media (max-width: 768px) {
-  .learning-container {
-    flex-direction: column;
-  }
-  .card-box {
-    width: 100%;
-  }
-}
-</style>
-<div class="learning-container">
-  
-  <div class="video-section card-box">
-    <div id="player"></div> <div class="video-buttons">
-      <button class="btn-video active" data-video="dQw4w9WgXcQ">Video 1: บทนำ</button>
-      <button class="btn-video" data-video="jNQXAC9IVRw">Video 2: เนื้อหาหลัก</button>
-      <button class="btn-video" data-video="3JZ_D3ELwOQ">Video 3: บทสรุป</button>
-    </div>
-  </div>
-
-  <div class="book-section card-box">
-    
-    <div id="bookCover" class="book-placeholder">
-      <div class="book-icon">📖</div>
-      <h3>เอกสารประกอบการเรียน</h3>
-      <p>คลิกเพื่อเปิดอ่านไฟล์ PDF</p>
-      <button class="btn-open-book" onclick="toggleBook(true)">
-        เปิดหนังสือ
-      </button>
-    </div>
-
-    <div id="pdfViewer" class="pdf-container" style="display: none;">
-      <div class="pdf-header">
-        <span>เอกสารประกอบ.pdf</span>
-        <button class="btn-close-book" onclick="toggleBook(false)">✖ ปิด</button>
-      </div>
-      <iframe id="pdfFrame" src="" width="100%" height="100%"></iframe>
-    </div>
-
-  </div>
-</div>
-<script>
-function toggleBook(isOpen) {
-  const cover = document.getElementById('bookCover');
-  const viewer = document.getElementById('pdfViewer');
-  const pdfFrame = document.getElementById('pdfFrame');
-  
-  // ระบุชื่อไฟล์ PDF ของคุณที่นี่ (ต้องวางไฟล์ไว้ในโฟลเดอร์เดียวกับเว็บ หรือระบุ Path ให้ถูก)
-  const pdfUrl = './documents/my-book.pdf'; 
-
-  if (isOpen) {
-    cover.style.display = 'none';
-    viewer.style.display = 'block';
-    
-    // โหลดไฟล์เมื่อกดเปิดเท่านั้น (ประหยัดเน็ต)
-    if (!pdfFrame.getAttribute('src')) {
-      pdfFrame.src = pdfUrl;
-    }
-  } else {
-    cover.style.display = 'block';
-    viewer.style.display = 'none';
-  }
-}
-</script>
+    <aside class="sidebar">
+    <h4>Login</h4>
+    <form class="login-form" id="login">
+      <input type="text" placeholder="Username">
+      <input type="password" placeholder="Password">
+      <a href="register.html">สมัครสมาชิก</a><br>
+      <a href="forgot.html">ลืมรหัสผ่าน?</a>
+      <button>Login</button>
+    </form>
+  </aside>
 </body>
 </html>

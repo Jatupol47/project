@@ -3,10 +3,12 @@
   --accent-color: #ACBAC4;
   --Beige: #E1D9BC;
   --Sea:#F0F0DB;
+  --primary-color: #c0392b;
+  --border-color: #ddd;
 }
 
 body {
-  background: url('/img/bg.png') center/cover no-repeat;
+  background: url('../img/bg.png') center/cover no-repeat;
   font-family: 'Prompt', 'Noto Sans Thai', sans-serif;
   margin: 0;
   padding: 0;
@@ -36,6 +38,7 @@ nav {
   color: white;
   padding: 0rem 1.5rem;
   border: 2px solid #000000;
+  top: var(--Navy-blue-height,70px);
 }
 
 nav a {
@@ -105,39 +108,109 @@ nav a {
 }
 
 .dashboard {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  min-height: 100vh;
+  display: block;
+}
+
+/* ปุ่มเลื่อนภาพ */
+.hero-btn{
+  position: absolute;
+  top: 85%;
+  width: 50px;
+  transform: translateY(50%);
+  background:rgba(0,0,0,0.4);
+  color:white;
+  border:none;
+  font-size:30px;
+  padding:5px 15px;
+  cursor:pointer;
+  z-index:5;
+  border-radius:6px;
+}
+
+.hero-btn:hover{
+  background:rgba(0,0,0,0.7);
+}
+
+/* ซ้าย */
+.hero-btn.prev{
+  left:40px;
+}
+
+/* ขวา */
+.hero-btn.next{
+  right:40px;
 }
 
 /* Sidebar */
-.sidebar {
-  background: #30364F;
-  color: white;
-  padding: 0.5rem;
-  border: #00001a;
-  border: 2px solid #000000;
-  border-radius: 0 20px 20px 0;
+.sidebar{
+  position: fixed;
+  top:70px;
+  left:-260px;
+  width:250px;
+  height:calc(100vh - 70px);
+  background:#30364F;
+  color:white;
+  padding:10px;
+  padding-top: 60px;
+  transition:left .4s ease;
+  z-index:1000;
+  overflow: visible;
 }
 
-.sidebar h4 {
-  margin-top: 0;
-  color: white;
+.sidebar.active{
+  left: 0px;;
+  height: 350px;
+  border-radius: 5px;
 }
 
-.sidebar .login-form input {
-  width: 100%;
-  margin-bottom: 0.5rem;
-  padding: 0.5rem;
+/* Toggle Button */
+.login-toggle{
+  position: absolute ;   /* ✅ ไม่ลอยทั้งจอ */
+  top:0px;
+  right:-25px;
+  background: var(--Beige);
+  color:white;
+  border:none;
+  padding:10px 12px;
+  border-radius:6px;
+  cursor:pointer;
 }
 
-.sidebar .login-form button {
-  width: 100%;
+.login-toggle.move{
+  left: 0px;
+}
+
+/* form */
+.sidebar .login-form input{
+  width:100%;
+  margin-bottom:.5rem;
+  padding:.5rem;
+}
+
+.sidebar .login-form button{
+  width:100%;
+}
+
+.sidebar.active .login-toggle{
+  right:10px;
+}
+
+/* Content shift */
+#pageContent{
+  transition:margin-left .4s ease;
+}
+
+#pageContent.shift{
+  margin-left:260px;
 }
 
 /* Main content */
-.dashboard-content {
-  padding: 1.5rem;
+.dashboard-content{
+  transition: margin-left .35s ease;
+}
+
+.dashboard-content.shift{
+  margin-left:260px;
 }
 
 
@@ -680,7 +753,7 @@ tr:nth-child(even) {
   border-radius: 10px;
   width: 100%;
   max-width: 500px;
-  position: relative; /* ✅ ต้องมี เพื่อให้ปุ่มอ้างอิงกล่องนี้ */
+  position: relative;
   box-shadow: 0 0 10px rgba(0,0,0,0.25);
   max-height: 90vh;
   overflow-y: auto;
@@ -825,8 +898,15 @@ tr:nth-child(even) {
   border: 5px solid rgb(0, 0, 0);
 }
 
-
-
+.about-image{
+  width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border: 3.5px solid var(--Navy-blue);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
 
 
 /*ปรับขนาดหน้าจอเล็ก */
