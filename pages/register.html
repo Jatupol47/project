@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th">
+<head id="head"></head>
+<body>
+  <div id="nav"></div>
+    <main class="registration-section">
+    <div class="container">
+      <div class="registration-container">
+        <div class="registration-header">
+          <h1>สมัครสมาชิกมัสยิดบ้านสมเด็จ</h1>
+          <p>กรุณากรอกข้อมูลให้ครบถ้วนเพื่อสมัครสมาชิกกับเรา</p>
+        </div>
+        
+        <form class="registration-form" id="registerForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">ชื่อจริง <span class="required">*</span></label>
+              <input type="text" id="firstName" name="firstName" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="lastName">นามสกุล <span class="required">*</span></label>
+              <input type="text" id="lastName" name="lastName" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="username">ชื่อผู้ใช้ <span class="required">*</span></label>
+            <input type="text" id="username" name="username" required>
+            <p class="form-note">ชื่อผู้ใช้ต้องมีความยาว 6-20 ตัวอักษร และใช้ได้เฉพาะตัวอักษรภาษาอังกฤษและตัวเลข</p>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="password">รหัสผ่าน <span class="required">*</span></label>
+              <input type="password" id="password" name="password" required>
+              <p class="form-note">รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร</p>
+            </div>
+            
+            <div class="form-group">
+              <label for="confirmPassword">ยืนยันรหัสผ่าน <span class="required">*</span></label>
+              <input type="password" id="confirmPassword" name="confirmPassword" required>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">อีเมล <span class="required">*</span></label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">เบอร์โทรศัพท์ <span class="required">*</span></label>
+              <input type="tel" id="phone" name="phone" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="address">ที่อยู่</label>
+            <textarea id="address" name="address" rows="3"></textarea>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="birthDate">วันเกิด</label>
+              <input type="date" id="birthDate" name="birthDate">
+            </div>
+            
+            <div class="form-group">
+              <label for="gender">เพศ</label>
+              <select id="gender" name="gender">
+                <option value="">เลือกเพศ</option>
+                <option value="male">ชาย</option>
+                <option value="female">หญิง</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">สมัครสมาชิก</button>
+            <button type="reset" class="btn btn-secondary">ยกเลิก</button>
+          </div>
+          
+          <div class="login-link">
+            <p>มีบัญชีอยู่แล้ว? <a href="index.html#login">เข้าสู่ระบบที่นี่</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+</main>
+</div>
+<div id="footer"></div>
+<button id="backToTop">↑</button>
+<script src="../js/include.js" defer></script>
+<script src="../js/script.js" defer></script>
+</body>
+</html>

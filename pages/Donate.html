@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="th">
+<head id="head"></head>
+<body>
+<div id="nav"></div>
+      <header class="hero">
+    <div class="hero-content">
+    <section class="total-section">
+        <h2 class="section-title-head">✨ ยอดรวมเงินบริจาคสะสม ✨</h2>
+        <h2 class="section-title-head">1,234,567.89฿</h2>
+        <br>
+        <p class="description">ขอขอบคุณผู้มีจิตศรัทธาทุกท่าน เงินทุกบาทจะนำไปใช้เพื่อพัฒนาศาสนสถานและกิจกรรมชุมชน</p>
+    </section>
+    </div>
+</header>
+
+    <main class="container">
+<div class="donation-container">
+    <section class="payment-section">
+        <h2 class="section-title">1. ขั้นตอนการโอนเงิน</h2>
+        
+        <div class="payment-card">
+            <h3 class="card-title">ช่องทางการบริจาคหลัก (พร้อมเพย์ / QR Code)</h3>
+            
+            <div class="qr-code-area">
+                <img id="qrCodeImage" src="../img/qr.png" alt="QR Code ธนาคารกสิกรไทย" class="qr-image">
+                <p class="account-info">บัญชี: มัสยิดนูรุลอิสลาม</p>
+                <p class="account-info">เลขที่บัญชี: **XXX-X-XXXXX-X**</p>
+                
+                <div class="bank-switcher">
+                    <button onclick="changeQR('kbank')" class="active">กสิกรไทย</button>
+                    <button onclick="changeQR('bbl')">กรุงเทพ</button>
+                </div>
+            </div>
+            
+            <p class="warning">**กรุณาบันทึกสลิปการโอนเงิน เพื่อใช้ในการยืนยันในขั้นตอนที่ 2**</p>
+        </div>
+    </section>
+    
+    <section class="form-section">
+        <h2 class="section-title">2. ยืนยันข้อมูลการบริจาคและแนบสลิป</h2>
+        
+        <form class="donation-form" action="/submit-donation" method="POST" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="amount">จำนวนเงินที่โอน (บาท) *</label>
+                <input type="number" id="amount" name="amount" required min="1">
+            </div>
+            
+            <div class="form-group">
+                <label for="purpose">วัตถุประสงค์การบริจาค *</label>
+                <select id="purpose" name="purpose" required>
+                    <option value="">-- กรุณาเลือก --</option>
+                    <option value="maintenance">บำรุงรักษาสถานที่และซ่อมแซมอาคาร</option>
+                    <option value="education">สนับสนุนกิจกรรมการศึกษาศาสนา</option>
+                    <option value="general">บริจาคทั่วไป (ตามแต่เจตนา)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="name">ชื่อ-นามสกุล (สำหรับบันทึกทะเบียนผู้บริจาค) *</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">เบอร์โทรศัพท์ (ไม่บังคับ)</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+            
+            <div class="form-group file-upload-group">
+                <label for="slip">แนบสลิปการโอนเงิน (JPG, PNG, PDF) *</label>
+                <input type="file" id="slip" name="slip" accept=".jpg, .jpeg, .png, .pdf" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="dua">คำอธิษฐาน (ดุอาอ์)(ไม่บังคับ)</label>
+                <textarea id="dua" name="dua" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" id="consent" name="consent" required>ข้าพเจ้ายอมรับว่าข้อมูลที่ให้ไว้เป็นความจริงและถูกต้อง
+            </div>
+             
+            <div class="form-actions">
+              <button type="button" class="secondary-button" id="taxReceiptBtn" data-target="taxReceiptModal" >💳 ขอใบลดหย่อน</button></a>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="submit-button">ส่งข้อมูลและยืนยันการบริจาค</button>
+            </div>
+
+            <div class="form-actions">
+                <button type="reset" class="reset-button">ยกเลิก</button>
+            </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+    <div id="taxReceiptModal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="taxModalTitle">
+    <button class="modal-close" id="modalClose" aria-label="ปิด">&times;</button>
+    <h3 id="taxModalTitle">ขอใบลดหย่อนภาษี</h3>
+    <p>กรุณากรอกข้อมูลสำหรับออกใบลดหย่อน (จะส่งไปยังอีเมลผู้ดูแล)</p>
+
+    <form id="taxForm">
+      <div class="form-group">
+        <label for="tax_name">ชื่อ-นามสกุล</label>
+        <input id="tax_name" name="tax_name" type="text">
+      </div>
+      <div class="form-group">
+        <label for="tax_id">เลขประจำตัวผู้เสียภาษี (ถ้ามี)</label>
+        <input id="tax_id" name="tax_id" type="text">
+      </div>
+      <div class="form-group">
+        <label for="tax_address">ที่อยู่สำหรับออกใบลดหย่อน</label>
+        <textarea id="tax_address" name="tax_address" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="tax_email">อีเมลสำหรับรับเอกสาร</label>
+        <input id="tax_email" name="tax_email" type="email">
+      </div>
+      <div class="form-group">
+        <label for="tax_slip">แนบสำเนาสลิป/หลักฐาน (ถ้ามี)</label>
+        <input id="tax_slip" name="tax_slip" type="file" accept=".jpg,.jpeg,.png,.pdf">
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="submit-button">ส่งคำขอใบลดหย่อน</button>
+        <button type="reset">ยกเลิก</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div id="footer"></div>
+<button id="backToTop">↑</button>
+<script src="../js/include.js" defer></script>
+<script src="../js/script.js" defer></script>
+</body>
+</html>

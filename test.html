@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+/* ส่วนหลักของ Sidebar (Aside) */
+.sidebar {
+  background: #30364F;
+  color: white;
+  padding: 1.5rem; /* เพิ่ม padding ให้ดูไม่แน่นเกินไป */
+  border: 2px solid #000000;
+  border-left: none; /* เอาขอบซ้ายออกเพราะติดขอบจอ */
+  border-radius: 0 20px 20px 0;
+  
+  /* ตั้งค่าการจัดวางและการซ่อน */
+  position: fixed;
+  left: 0;
+  top: 150px;
+  width: 260px; /* กำหนดความกว้างที่แน่นอน */
+  z-index: 1000;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* สไลด์แบบนุ่มนวล */
+}
+
+/* เมื่อมีคลาส .collapsed ให้เลื่อนไปทางซ้ายจนสุด */
+.sidebar.collapsed {
+  transform: translateX(-100%);
+}
+
+/* หัวข้อ Sidebar */
+.sidebar h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: white;
+  font-size: 1.2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 0.5rem;
+}
+
+/* ฟอร์ม Login */
+.sidebar .login-form input {
+  width: 100%;
+  margin-bottom: 0.75rem;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #f8f9fa;
+  box-sizing: border-box; /* ป้องกัน input ล้นขอบ */
+}
+
+/* ปุ่ม Login */
+.sidebar .login-form button {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  background: #4A5568;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar .login-form button:hover {
+  background: #2D3748;
+}
+
+/* --- ปุ่ม Toggle สำหรับกดซ่อน/แสดง --- */
+.toggle-sidebar-btn {
+  position: absolute;
+  right: -35px; /* ยื่นออกมานอกตัว sidebar */
+  top: 20px;
+  width: 35px;
+  height: 45px;
+  background: #30364F;
+  border: 2px solid #000000;
+  border-left: none;
+  border-radius: 0 10px 10px 0;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+/* ลิงก์สมัครสมาชิก/ลืมรหัสผ่าน */
+.sidebar-links {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+}
+
+.sidebar-links a {
+  color: #a0aec0;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.sidebar-links a:hover {
+  color: white;
+}
+  </style>
+</head>
+<body>
+    <aside class="sidebar">
+    <h4>Login</h4>
+    <form class="login-form" id="login">
+      <input type="text" placeholder="Username">
+      <input type="password" placeholder="Password">
+      <a href="register.html">สมัครสมาชิก</a><br>
+      <a href="forgot.html">ลืมรหัสผ่าน?</a>
+      <button>Login</button>
+    </form>
+  </aside>
+</body>
+</html>
